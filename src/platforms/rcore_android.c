@@ -77,6 +77,8 @@ extern CoreData CORE;                   // Global CORE state context
 
 static PlatformData platform = { 0 };   // Platform specific data
 
+void* GetAndroidPlatformData() { return &platform; }  // @chemaguerra
+
 //----------------------------------------------------------------------------------
 // Module Internal Functions Declaration
 //----------------------------------------------------------------------------------
