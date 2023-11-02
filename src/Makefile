@@ -235,8 +235,8 @@ ifeq ($(PLATFORM),PLATFORM_WEB)
 endif
 ifeq ($(PLATFORM),PLATFORM_ANDROID)
     # By default use OpenGL ES 2.0 on Android
-    #GRAPHICS = GRAPHICS_API_OPENGL_ES2
-     GRAPHICS = GRAPHICS_API_OPENGL_ES3  # @chemaguerra
+     GRAPHICS = GRAPHICS_API_OPENGL_ES2
+    #GRAPHICS = GRAPHICS_API_OPENGL_ES3  # @chemaguerra
 endif
 
 # Define default C compiler and archiver to pack library: CC, AR
