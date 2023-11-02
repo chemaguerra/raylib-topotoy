@@ -146,12 +146,12 @@
 #define SUPPORT_FILEFORMAT_PNG      1
 //#define SUPPORT_FILEFORMAT_BMP      1
 //#define SUPPORT_FILEFORMAT_TGA      1
-//#define SUPPORT_FILEFORMAT_JPG      1
+#define SUPPORT_FILEFORMAT_JPG      1  // @chemaguerra
 #define SUPPORT_FILEFORMAT_GIF      1
 #define SUPPORT_FILEFORMAT_QOI      1
 //#define SUPPORT_FILEFORMAT_PSD      1
 #define SUPPORT_FILEFORMAT_DDS      1
-//#define SUPPORT_FILEFORMAT_HDR      1
+#define SUPPORT_FILEFORMAT_HDR      1  // @chemaguerra
 //#define SUPPORT_FILEFORMAT_PIC          1
 //#define SUPPORT_FILEFORMAT_KTX      1
 //#define SUPPORT_FILEFORMAT_ASTC     1
