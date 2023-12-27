@@ -1028,12 +1028,12 @@ void DrawGrid(int slices, float spacing)
     rlEnd();
 }
 
-void UploadModel( Model* model )                     // @chemaguerra
-{                                                    // @chemaguerra
-  if ( model.meshes )                                // @chemaguerra
-    for ( int i = 0; ( i < model.meshCount ); ++i )  // @chemaguerra
-      UploadMesh( ( model->meshes + i ), false );    // @chemaguerra
-}                                                    // @chemaguerra
+void UploadModel( Model* model )                      // @chemaguerra
+{                                                     // @chemaguerra
+  if ( model->meshes )                                // @chemaguerra
+    for ( int i = 0; ( i < model->meshCount ); ++i )  // @chemaguerra
+      UploadMesh( ( model->meshes + i ), false );     // @chemaguerra
+}                                                     // @chemaguerra
 
 // Load model from files (mesh and material)
 Model LoadModel(const char *fileName, const bool cpuOnly)  // @chemaguerra
