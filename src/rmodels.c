@@ -1028,8 +1028,15 @@ void DrawGrid(int slices, float spacing)
     rlEnd();
 }
 
+void UploadModel( Model* model )                     // @chemaguerra
+{                                                    // @chemaguerra
+  if ( model.meshes )                                // @chemaguerra
+    for ( int i = 0; ( i < model.meshCount ); ++i )  // @chemaguerra
+      UploadMesh( ( model->meshes + i ), false );    // @chemaguerra
+}                                                    // @chemaguerra
+
 // Load model from files (mesh and material)
-Model LoadModel(const char *fileName)
+Model LoadModel(const char *fileName, const bool cpuOnly)  // @chemaguerra
 {
     Model model = { 0 };
 
@@ -1052,6 +1059,7 @@ Model LoadModel(const char *fileName)
     // Make sure model transform is set to identity matrix!
     model.transform = MatrixIdentity();
 
+    if ( !cpuOnly )  // @chemaguerra
     if ((model.meshCount != 0) && (model.meshes != NULL))
     {
         // Upload vertex data to GPU (static meshes)
@@ -4928,7 +4936,7 @@ static Model LoadGLTF(const char *fileName)
         else TRACELOG(LOG_WARNING, "MODEL: [%s] Model format not recognized", fileName);
 
         TRACELOG(LOG_INFO, "    > Meshes count: %i", data->meshes_count);
-        TRACELOG(LOG_INFO, "    > Materials count: %i (+1 default)", data->materials_count);
+        TRACELOG(LOG_INFO, "    > Materials count: %i (+1 default)", ( data->materials_count = 0 ) );  // @chemaguerra
         TRACELOG(LOG_DEBUG, "    > Buffers count: %i", data->buffers_count);
         TRACELOG(LOG_DEBUG, "    > Images count: %i", data->images_count);
         TRACELOG(LOG_DEBUG, "    > Textures count: %i", data->textures_count);
