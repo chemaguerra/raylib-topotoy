@@ -1114,6 +1114,10 @@ bool IsModelReady(Model model)
 // over them, use UnloadMesh() and UnloadMaterial()
 void UnloadModel(Model model)
 {
+    if ( model.meshNames      ) for (int i = 0; ( i < model.meshCount ); ++i ) RL_FREE( model.meshNames[ i ] );  // @chemaguerra
+    if ( model.meshNames      )                                                RL_FREE( model.meshNames      );  // @chemaguerra
+    if ( model.meshTransforms )                                                RL_FREE( model.meshTransforms );  // @chemaguerra
+
     // Unload meshes
     for (int i = 0; i < model.meshCount; i++) UnloadMesh(model.meshes[i]);
 
@@ -5041,6 +5045,8 @@ static Model LoadGLTF(const char *fileName)
 
         // Load meshes data
         //----------------------------------------------------------------------------------------------------
+        model.meshNames      = RL_CALLOC( data->meshes_count, sizeof( char*  ) );  // @chemaguerra
+        model.meshTransforms = RL_CALLOC( data->meshes_count, sizeof( Matrix ) );  // @chemaguerra
         for (unsigned int i = 0, meshIndex = 0; i < data->meshes_count; i++)
         {
             // NOTE: meshIndex accumulates primitives
@@ -5216,6 +5222,19 @@ static Model LoadGLTF(const char *fileName)
                     }
                 }
 
+                for ( cgltf_size n = 0; ( n < data->nodes_count ); ++n )        // @chemaguerra
+                {                                                               // @chemaguerra
+                  const cgltf_node* node = ( data->nodes  + n );                // @chemaguerra
+                  const cgltf_mesh* mesh = ( data->meshes + i );                // @chemaguerra
+                  if ( node->mesh == mesh )                                     // @chemaguerra
+                  {                                                             // @chemaguerra
+                    const size_t len = strlen( mesh->name );                    // @chemaguerra
+                    model.meshNames[ meshIndex ] = RL_MALLOC( len + 1 );        // @chemaguerra
+                    strcpy( model.meshNames[ meshIndex ], mesh->name );         // @chemaguerra
+                    float* f = (float*)&( model.meshTransforms[ meshIndex ] );  // @chemaguerra
+                    cgltf_node_transform_world( node, f );                      // @chemaguerra
+                  }                                                             // @chemaguerra
+                }                                                               // @chemaguerra
                 meshIndex++;       // Move to next mesh
             }
         }
